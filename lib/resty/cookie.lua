@@ -200,4 +200,17 @@ function _M.set(self, cookie)
     return true
 end
 
+function _M.clear(self, key)
+    local ok, err = self:set({
+        key = key, value = "deleted", path = "/",
+        expires = "Thu, 01 Jan 1970 00:00:00 GMT",
+        max_age = 0,
+    })
+    if not ok then
+        ngx.log(ngx.ERR, err)
+        return false
+    end
+    return true
+end
+
 return _M
